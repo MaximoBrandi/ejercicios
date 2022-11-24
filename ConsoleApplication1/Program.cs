@@ -6,6 +6,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+
+/* Es necesario anadir la posibilidad de eliminar y modificar entradas en el visor de empleados
+ al mismo tiempo que deberian de poder verse un limite de 10 por pantalla y toda la informacion 
+ de ellos en forma de tabla, y al seleccionarlo ver las posibles acciones sobre el empleado*/
+
 namespace ConsoleApplication1
 {
 
@@ -39,13 +44,13 @@ namespace ConsoleApplication1
                     }
                 }
                 Console.Clear();
-                Console.WriteLine("Ejercicio 12.2 Máximo Prandi\n\nBienvenido, ingrese la accion que desea realizar\n1. Generar empleado\n2. Ver empleados");
+                Console.WriteLine("Ejercicio 12.2 Máximo Prandi\n\nBienvenido, ingrese la accion que desea realizar\n1. Generar empleado\n2. Ver empleados\n3. Gestion de archivos");
                 if (!fileSystem.Listado().ContainsKey(@"C:\Users\Desarrollo\Documents\Working\Ex12.2\Lists\Ejemplo.txt"))
                 {
-                    Console.Write("\n3. Descargar ejemplo de prueba");
+                    Console.Write("3. Descargar ejemplo de prueba\n4.Gestion de archivos");
                     Console.Write(fileSystem.Listado().First().Key);
                 }
-                switch (Console.ReadLine())
+                switch (Console.ReadKey().KeyChar.ToString())
                 {
                     case "1":
                         Console.Clear();
@@ -113,7 +118,7 @@ namespace ConsoleApplication1
                         }
                         Console.Clear();
                         Console.WriteLine("Ejercicio 12.2 Máximo Prandi\n\n¿Que deseas ingresar?\n1. Comerciante\n2. Repartidor");
-                        switch (Console.ReadLine())
+                        switch (Console.ReadKey().KeyChar.ToString())
                         {
                             case "2":
                                 Console.Clear();
@@ -329,24 +334,31 @@ namespace ConsoleApplication1
                         Console.ReadKey();
                         break;
                     case "3":
-                        Console.Clear();
-                        Console.WriteLine("Ejercicio 12.2 Máximo Prandi\n\n¿Desea descargar el archivo XXXX (XXX)?\n1. Si\n2. No");
-                        switch (Console.ReadLine())
+                        if (!fileSystem.Listado().ContainsKey(@"C:\Users\Desarrollo\Documents\Working\Ex12.2\Lists\Ejemplo.txt"))
                         {
-                            case "1":
-                                Console.Clear();
-                                Console.WriteLine("Ejercicio 12.2 Máximo Prandi\n\n");
-                                Console.Write("Descargar");
-                                fileSystem.descargarListado("https://testing5.lac-lyp.com.ar/Ejemplo.txt","Ejemplo.txt");
-                                Thread thread2 = new Thread(ThreadWork.Load);
-                                thread2.Start();
-                                Console.ReadLine();
-                                thread2.Abort();
-                                break;
-                            case "2":
-                                break;
-                            default:
-                                break;
+                            Console.Clear();
+                            Console.WriteLine("Ejercicio 12.2 Máximo Prandi\n\n¿Desea descargar el archivo XXXX (XXX)?\n1. Si\n2. No");
+                            switch (Console.ReadKey().KeyChar.ToString())
+                            {
+                                case "1":
+                                    Console.Clear();
+                                    Console.WriteLine("Ejercicio 12.2 Máximo Prandi\n\n");
+                                    Console.Write("Descargar");
+                                    fileSystem.descargarListado("https://testing5.lac-lyp.com.ar/Ejemplo.txt","Ejemplo.txt");
+                                    Thread thread2 = new Thread(ThreadWork.Load);
+                                    thread2.Start();
+                                    Console.ReadLine();
+                                    thread2.Abort();
+                                    break;
+                                case "2":
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            /*Aqui deberia colocar los archivos de listado y el poder borrarlos, modificarlos, eliminarlos, renombrarlos entre otras posibles acciones*/
                         }
                         break;
                     case "exit":
